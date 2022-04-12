@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  pycker:
+    build:
+      context: ./pycker
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./pycker/src:/app/pycker/src
+
+volumes:
+  pydata:

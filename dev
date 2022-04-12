@@ -1,0 +1,24 @@
+#!/bin/sh
+
+COMMAND=$1
+shift
+
+case $COMMAND in 
+  build)
+    if [ ! -d venv ]; then
+      python3 -m venv venv
+    fi
+    . venv/bin/activate \
+    && python3 -m pip install --upgrade pip -r ./pycker/requirements.txt \
+    && docker-compose up --build --force-recreate
+    ;;
+  pycker)
+    docker-compose exec pycker "$@"
+    ;;
+  pycker:run)
+    docker-compose exec pycker python3 "$@"
+    ;;
+  *)
+    echo "Invalid comand '$COMMAND'"
+    exit 1
+esac
